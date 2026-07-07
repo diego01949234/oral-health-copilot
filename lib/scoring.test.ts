@@ -90,4 +90,10 @@ describe('computeResult', () => {
     expect(result.dentistSummary).toContain('Periodontal:')
     expect(result.dentistSummary).toContain('Access')
   })
+
+  it('returns at least 2 recommendations even for low-risk users', () => {
+    const result = computeResult(lowRiskAnswers)
+    expect(result.recommendations.length).toBeGreaterThanOrEqual(2)
+    expect(result.recommendations.length).toBeLessThanOrEqual(4)
+  })
 })

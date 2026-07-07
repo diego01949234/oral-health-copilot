@@ -119,7 +119,18 @@ function selectRecommendations(riskFactors: string[], riskLevel: RiskLevel): str
       recs.unshift('Schedule a dental visit soon')
     }
   }
-  return recs.slice(0, 4)
+  const result = recs.slice(0, 4)
+  if (result.length < 2) {
+    const fallbacks = [
+      'Continue brushing twice daily with fluoride toothpaste',
+      'Keep up your regular dental visits for preventive care',
+    ]
+    for (const f of fallbacks) {
+      if (result.length >= 2) break
+      if (!result.includes(f)) result.push(f)
+    }
+  }
+  return result
 }
 
 function buildPatientSummary(riskLevel: RiskLevel): string {
